@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro Museum</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+
+      background: #000;
+
+
+      overflow: hidden;
+    }
+
+    .coming-soon {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .coming-soon h1 {
+      color: #fff;
+
+      font-family: 'PT Mono', monospace;
+
+      animation: fontanim 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes fontanim {
+      from {
+        text-shadow: 0 0 30px #fff, 0 0 30px #4dff5c, 0 0 40px #4dff53, 0 0 50px #4dff74, 0 0 60px #4dff68, 0 0 70px #5fff4d, 0 0 80px #59ff4d;
+        font-size: 90pt;
+        transform: rotate(-1deg);
+      }
+
+      to {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00e623, 0 0 40px #00e60c, 0 0 50px #00e604, 0 0 60px #13e600, 0 0 70px #0ce600;
+        font-size: 87pt;
+        transform: rotate(1deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="coming-soon">
+    <h1>Coming soon</h1>
+  </div>
+  <canvas width="500" height="200" id="canv" />
+
+  <script>
+    const canvas = document.getElementById('canv');
+    const ctx = canvas.getContext('2d');
+
+    const w = canvas.width = document.body.offsetWidth;
+    const h = canvas.height = document.body.offsetHeight;
+    const cols = Math.floor(w / 20) + 1;
+    const ypos = Array(cols).fill(0);
+
+    function matrix() {
+      ctx.fillStyle = '#0001';
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.fillStyle = '#00ff0077';
+      ctx.font = '15pt monospace';
+
+      ypos.forEach((y, ind) => {
+        const text = String.fromCharCode(Math.random() * 128);
+        const x = ind * 20;
+        ctx.fillText(text, x, y);
+        if (y > 100 + Math.random() * 10000) {
+          ypos[ind] = 0;
+        } else {
+          ypos[ind] = y + 20;
+        };
+      });
+    }
+
+    setInterval(matrix, 40);
+  </script>
+</body>
+
+</html>
